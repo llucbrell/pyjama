@@ -8,13 +8,14 @@
     <script>
         async function sendNoteAction(action) {
             const note = document.getElementById('note').value;
+            const preset = document.getElementById('preset').value;
             try {
-                const response = await fetch('/send_note', {
+                const response = await fetch("{{ url_for('jam_test.send_note') }}", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ note: note, action: action })
+                    body: JSON.stringify({ note: note, action: action, preset: preset })
                 });
                 const result = await response.json();
                 if (response.ok) {
@@ -42,6 +43,14 @@
             <div class="form-group">
                 <label for="note">MIDI Note Number</label>
                 <input type="number" class="form-control" id="note" name="note" required>
+            </div>
+            <div class="form-group">
+                <label for="preset">Select Preset</label>
+                <select id="preset" class="form-control" required>
+                    {% for id, name in presets %}
+                    <option value="{{ id }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <button onclick="sendNoteAction('note_on')" class="btn btn-primary">Note On</button>
             <button onclick="sendNoteAction('note_off')" class="btn btn-secondary">Note Off</button>
