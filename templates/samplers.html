@@ -46,6 +46,7 @@
                                 <button type="submit" class="btn btn-warning btn-sm">Edit</button>
                             </form>
                             <a href="{{ url_for('samplers.delete_sampler', sampler_id=sampler.id) }}" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="{{ url_for('jam_test.jam_test', sampler_id=sampler.id) }}" class="btn btn-info btn-sm">Jam Test</a>
                         </td>
                     </tr>
                     {% endfor %}

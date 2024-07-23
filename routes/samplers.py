@@ -1,7 +1,9 @@
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from werkzeug.utils import secure_filename
 import os
-from database import session, Sampler
+import fluidsynth
+import mido
+from database import session, Sampler, Configuration
 
 samplers_bp = Blueprint('samplers', __name__)
 
@@ -49,3 +51,4 @@ def delete_sampler(sampler_id):
     session.delete(sampler)
     session.commit()
     return redirect(url_for('samplers.samplers'))
+

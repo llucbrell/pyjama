@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jam Test</title>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <script>
+        async function sendNoteAction(action) {
+            const note = document.getElementById('note').value;
+            try {
+                const response = await fetch('/send_note', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ note: note, action: action })
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    alert(result.status + ": " + result.action + " note " + result.note);
+                } else {
+                    alert(result.status + ": " + result.message);
+                }
+            } catch (error) {
+                alert("An error occurred: " + error.message);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Jam Test</h1>
+        <h2>Sampler: {{ sampler.name }}</h2>
+        {% if message %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+        <div class="mb-4">
+            <h3>Manual Note Control</h3>
+            <div class="form-group">
+                <label for="note">MIDI Note Number</label>
+                <input type="number" class="form-control" id="note" name="note" required>
+            </div>
+            <button onclick="sendNoteAction('note_on')" class="btn btn-primary">Note On</button>
+            <button onclick="sendNoteAction('note_off')" class="btn btn-secondary">Note Off</button>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>
