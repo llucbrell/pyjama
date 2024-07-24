@@ -26,6 +26,9 @@ def handle_midi_message(message):
         synth.noteon(0, message.note, message.velocity)
     elif message.type == 'note_off':
         synth.noteoff(0, message.note)
+    elif message.type == 'control_change':
+        if message.control == 64:  # Sustain pedal
+            synth.cc(0, 64, message.value)
 
 @device_bp.route('/device')
 def device():
