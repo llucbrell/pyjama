@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIDI Port Selector</title>
+    <script>
+        async function selectPort() {
+            const port = document.getElementById('midiPort').value;
+            const response = await fetch('/select_port', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ port: port })
+            });
+            const result = await response.json();
+            alert(result.status + ": " + result.port);
+        }
+    </script>
+</head>
+<body>
+    <h1>MIDI Port Selector</h1>
+    <label for="midiPort">Available MIDI Ports:</label>
+    <select id="midiPort">
+        {% for port in midi_ports %}
+        <option value="{{ port }}">{{ port }}</option>
+        {% endfor %}
+    </select>
+    <button onclick="selectPort()">Select Port</button>
+</body>
+</html>

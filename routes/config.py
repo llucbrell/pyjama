@@ -4,10 +4,6 @@ import mido
 
 config_bp = Blueprint('config', __name__)
 
-@config_bp.route('/')
-def index():
-    return redirect(url_for('config.config'))
-
 @config_bp.route('/config')
 def config():
     configurations = session.query(Configuration).all()
