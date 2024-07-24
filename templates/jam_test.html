@@ -1,36 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jam Test</title>
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-    <script>
-        async function sendNoteAction(action) {
-            const note = document.getElementById('note').value;
-            const preset = document.getElementById('preset').value;
-            try {
-                const response = await fetch("{{ url_for('jam_test.send_note') }}", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ note: note, action: action, preset: preset })
-                });
-                const result = await response.json();
-                if (response.ok) {
-                    alert(result.status + ": " + result.action + " note " + result.note);
-                } else {
-                    alert(result.status + ": " + result.message);
-                }
-            } catch (error) {
-                alert("An error occurred: " + error.message);
-            }
-        }
-    </script>
-</head>
-<body>
-    <div class="container">
+{% extends "base.html" %}
+
+{% block content %}
+   <div class="container">
         <h1 class="mt-4">Jam Test</h1>
         <h2>Sampler: {{ sampler.name }}</h2>
         {% if message %}
@@ -52,12 +23,14 @@
                     {% endfor %}
                 </select>
             </div>
-            <button onclick="sendNoteAction('note_on')" class="btn btn-primary">Note On</button>
-            <button onclick="sendNoteAction('note_off')" class="btn btn-secondary">Note Off</button>
+            <button onclick="sendNoteAction('note_on')" class="btn btn-outline-primary mt-2"><i class="fa-solid fa-play"></i></button>
+            <button onclick="sendNoteAction('note_off')" class="btn btn-secondary mt-2"><i class="fa-solid fa-pause"></i></button>
+            <div class="alert alert-danger d-none" role="alert" id="response-err-msg"></div>
+            <div class="alert alert-success d-none" role="alert" id="response-msg"></div>
             <form method="get" action="{{ url_for('device.device') }}" class="mt-4">
                 <input type="hidden" name="sampler_id" value="{{ sampler.id }}">
                 <input type="hidden" name="preset" id="preset-form">
-                <button type="submit" class="btn btn-success">Connect Device</button>
+                <button type="submit" class="btn btn-outline-success mb-3" style="float: right;"><i class="fa-solid fa-plug"></i></button>
             </form>
         </div>
     </div>
@@ -71,5 +44,45 @@
         // Set the initial value of the preset in the form
         document.getElementById('preset-form').value = document.getElementById('preset').value;
     </script>
-</body>
-</html>
+    <script>
+        async function sendNoteAction(action) {
+            const note = document.getElementById('note').value;
+            if(!note) {
+                document.getElementById('note').focus();
+                document.getElementById("response-err-msg").innerHTML = "Error" + ": " + "Note number can't be none";
+                document.getElementById("response-msg").classList.add('d-none');
+                document.getElementById("response-err-msg").classList.remove('d-none');
+                return;
+            }
+            const preset = document.getElementById('preset').value;
+            try {
+                const response = await fetch("{{ url_for('jam_test.send_note') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ note: note, action: action, preset: preset })
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    //alert(result.status + ": " + result.action + " note " + result.note);
+                    document.getElementById("response-msg").innerHTML = result.status + ": " + result.action + " note " + result.note;
+                    document.getElementById("response-msg").classList.remove('d-none');
+                    document.getElementById("response-err-msg").classList.add('d-none');
+                } else {
+                    //alert(result.status + ": " + result.message);
+                    document.getElementById("response-err-msg").innerHTML = result.status + ": " + result.action + " note " + result.note;
+                    document.getElementById("response-msg").classList.add('d-none');
+                    document.getElementById("response-err-msg").classList.remove('d-none');
+                }
+            } catch (error) {
+                //alert("An error occurred: " + error.message);
+                    document.getElementById("response-err-msg").innerHTML = "Error" + ": " + error.message;
+                    document.getElementById("response-msg").classList.add('d-none');
+                    document.getElementById("response-err-msg").classList.remove('d-none');
+            }
+        }
+    </script>
+ 
+
+{% endblock %}

@@ -5,12 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My App{% endblock %}</title>
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/all.min.css') }}" rel="stylesheet">
 
 </head>
 <body>
     <div class="container">
+        <!-- Navbar -->
+
+        <div class="row mt-2">
+            <div class="col-12">
+            <div class="d-flex justify-content-start mb-4">
+            <a class="btn btn-outline-primary me-2" href="{{ url_for('theme.list_themes')}}">
+                <i class="fa-solid fa-music"></i>
+            </a>
+            <a class="btn btn-outline-primary me-2" href="{{ url_for('samplers.samplers') }}">
+                <i class="fa-solid fa-guitar"></i>
+            </a>
+            <a class="btn btn-outline-primary me-2" href="{{ url_for('samplers.samplers') }}">
+                <i class="fa-solid fa-wave-square"></i>
+            </a>
+            <a class="btn btn-outline-primary me-2" href="{{ url_for('config.config') }}">
+                <i class="fas fa-plug"></i>
+            </a>
+            <!-- Add more buttons as needed -->
+            </div>
+            </div>
+        </div>
         {% block content %}{% endblock %}
     </div>
     <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 </body>
 </html>

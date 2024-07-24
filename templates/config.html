@@ -8,35 +8,6 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12">
-        <div class="mb-4">
-            <h2>Add Configuration</h2>
-            </div>
-        </div>
-            <form method="post" action="{{ url_for('config.add_config') }}">
-            <div class="col-12">
-                <div class="form-group">
-                    <label for="name">Configuration Name</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="form-group">
-                    <label for="port">MIDI Port</label>
-                    <select class="form-control" id="port" name="port" required>
-                        {% for port in midi_ports %}
-                        <option value="{{ port }}">{{ port }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-            <div class="col-12">
-                <button type="submit" class="btn btn-primary mt-3" style="float: right;">Add</button>
-            </div>
-            </form>
-            </div>
-
         <div class="mb-4">
         <div class="row">
             <div class="col-12">
@@ -48,7 +19,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Ports/Devices</th>
+                        <th>Saved</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -78,11 +49,13 @@
                             <div class="row mt-2 mb-3">
                             <div class="col-12">
                             {% if not config.active %}
-                            <a href="{{ url_for('config.activate_config', config_id=config.id) }}" class="btn btn-success btn-sm">Activate</a>
+                            <a href="{{ url_for('config.activate_config', config_id=config.id) }}" class="btn btn-outline-success btn-sm"><i class="fa-solid fa-plug"></i></a>
+                            {% else %}
+                            <a href="" class="btn btn-success btn-sm"><i class="fa-solid fa-plug"></i></a>
                             {% endif %}
-                            <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+                            <button type="submit" class="btn btn-outline-warning btn-sm"><i class="fa-solid fa-floppy-disk"></i></button>
                             </form>
-                            <a href="{{ url_for('config.delete_config', config_id=config.id) }}" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="{{ url_for('config.delete_config', config_id=config.id) }}" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
                             </div>
                             </div>
                         </td>
@@ -95,6 +68,46 @@
         </div>
         </div>
 
+
+        <div class="row">
+            <div class="col-12">
+                <p><b>
+                    New
+                </b></p>
+        <div class="mb-4">
+            </div>
+        </div>
+
+
+            <form method="post" action="{{ url_for('config.add_config') }}">
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="name">New Config Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="port">Select MIDI Port</label>
+                    <select class="form-control" id="port" name="port" required>
+                        {% for port in midi_ports %}
+                        <option value="{{ port }}">{{ port }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-outline-primary mt-3 mb-3" style="float: right;">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+            </form>
+            </div>
+
+        <!--
+
+        <div class="row">
+            <div class="col-12">
         <div class="mb-4">
             <h2>Active Configuration</h2>
             {% if active_config %}
@@ -104,5 +117,10 @@
             <p>No active configuration</p>
             {% endif %}
         </div>
+        </div>
+        </div>
     </div>
+            -->
+
+
 {% endblock %}
