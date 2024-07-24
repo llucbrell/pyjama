@@ -54,8 +54,22 @@
             </div>
             <button onclick="sendNoteAction('note_on')" class="btn btn-primary">Note On</button>
             <button onclick="sendNoteAction('note_off')" class="btn btn-secondary">Note Off</button>
+            <form method="get" action="{{ url_for('device.device') }}" class="mt-4">
+                <input type="hidden" name="sampler_id" value="{{ sampler.id }}">
+                <input type="hidden" name="preset" id="preset-form">
+                <button type="submit" class="btn btn-success">Connect Device</button>
+            </form>
         </div>
     </div>
     <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script>
+        // Update the preset value in the form when the dropdown changes
+        document.getElementById('preset').addEventListener('change', function() {
+            document.getElementById('preset-form').value = this.value;
+        });
+
+        // Set the initial value of the preset in the form
+        document.getElementById('preset-form').value = document.getElementById('preset').value;
+    </script>
 </body>
 </html>
