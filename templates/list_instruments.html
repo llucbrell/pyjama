@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Instrument List{% endblock %}
+
+{% block header %}List of Instruments{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-4">List of Instruments</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Source</th>
+                <th>Preset</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for instrument in instruments %}
+            <tr>
+                <td>{{ instrument.name }}</td>
+                <td>{{ instrument.instrument_type }}</td>
+                <td>{{ instrument.source }}</td>
+                <td>{{ instrument.preset }}</td>
+                <td>
+                    <div class="btn-group">
+                        <button class="btn btn-danger btn-sm" onclick="deleteInstrument('{{ instrument.id }}')">Delete</button>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    async function deleteInstrument(instrumentId) {
+        if (!confirm("Are you sure you want to delete this instrument?")) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`{{ url_for('instrument.delete_instrument', instrument_id=0) }}`.replace('0', instrumentId), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const result = await response.json();
+            if (response.ok) {
+                alert(result.message);
+                location.reload();
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            alert("An error occurred: " + error.message);
+        }
+    }
+</script>
+{% endblock %}
