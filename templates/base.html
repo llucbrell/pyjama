@@ -6,34 +6,34 @@
     <title>{% block title %}My App{% endblock %}</title>
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/all.min.css') }}" rel="stylesheet">
-
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <!-- Navbar -->
-
-        <div class="row mt-2">
-            <div class="col-12">
+    <div class="floating-bar">
+        <div class="container">
             <div class="d-flex justify-content-start mb-4">
-            <a class="btn btn-outline-primary me-2" href="{{ url_for('theme.list_themes')}}">
-                <i class="fa-solid fa-music"></i>
-            </a>
-           <a class="btn btn-outline-primary me-2" href="{{ url_for('instrument.list_instruments') }}">
-                <i class="fa-solid fa-guitar"></i>
-            </a>
- 
-            <a class="btn btn-outline-primary me-2" href="{{ url_for('samplers.samplers') }}">
-                <i class="fa-solid fa-wave-square"></i>
-            </a>
-            <a class="btn btn-outline-primary me-2" href="{{ url_for('config.config') }}">
-                <i class="fas fa-plug"></i>
-            </a>
-            <!-- Add more buttons as needed -->
-            </div>
+                <a class="btn btn-outline-primary me-2" href="{{ url_for('theme.list_themes') }}">
+                    <i class="fa-solid fa-music"></i>
+                </a>
+                <a class="btn btn-outline-primary me-2" href="{{ url_for('instrument.list_instruments') }}">
+                    <i class="fa-solid fa-guitar"></i>
+                </a>
+                <a class="btn btn-outline-primary me-2" href="{{ url_for('samplers.samplers') }}">
+                    <i class="fa-solid fa-wave-square"></i>
+                </a>
+                <a class="btn btn-outline-primary me-2" href="{{ url_for('config.config') }}">
+                    <i class="fas fa-plug"></i>
+                </a>
+                <!-- Add more buttons as needed -->
             </div>
         </div>
+    </div>
+   <br>
+
+    <div class="container container-fix">
         {% block content %}{% endblock %}
     </div>
+
     <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 </body>

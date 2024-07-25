@@ -10,16 +10,26 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
-    <div class="container">
-
-        <div class="row mt-2">
-            <div class="col-12">
-                <button type="button" class="btn btn-outline-primary" id="prev-screen"><i class="fa-solid fa-chevron-left"></i></button>
-                {{ theme.title }}
-                <button type="button" class="btn btn-outline-primary" id="next-screen" style="float: right;"><i class="fa-solid fa-chevron-right"></i></button>
+    <div class="floating-bar">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <button type="button" class="btn btn-outline-primary btn-small me-2" id="prev-screen"><i class="fa-solid fa-chevron-left"></i></button>
+                    <a class="btn btn-outline-primary btn-small" href="{{ url_for('theme.list_themes') }}">
+                        <i class="fa-solid fa-music"></i>
+                    </a>
+                </div>
+                <div class="text-center flex-grow-1">
+                    <span>{{ theme.title }}</span>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-outline-primary btn-small" id="next-screen"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
             </div>
         </div>
-        
+    </div>
+
+    <div class="container container-fix">
         <div id="screens" class="mt-4">
             <div id="screen1" class="screen active">
                 <div class="row no-gutters">
@@ -27,7 +37,7 @@
                     <div class="col-6 col-sm-6 col-md-4 col-lg-2">
                         <div class="card play-instrument" data-param-song-id="{{ param_song.id }}" data-preset="{{ param_song.instrument.preset }}" data-soundfont="{{ param_song.instrument.source }}">
                             <div class="card-body">
-                                    <h5 class="card-title"><i class="fa-solid fa-play"></i></h5>
+                                <h5 class="card-title"><i class="fa-solid fa-play"></i></h5>
                                 <small>
                                     <p class="card-text">
                                         {{ param_song.instrument.name }}
