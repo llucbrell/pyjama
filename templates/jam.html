@@ -11,25 +11,57 @@
 <body>
     <div class="container">
         <h1 class="mt-4">Jam with {{ theme.title }}</h1>
-        <div class="row">
-            {% for param_song in param_songs %}
-            <div class="col-md-3">
-                <div class="card mb-4 play-instrument" data-param-song-id="{{ param_song.id }}" data-preset="{{ param_song.instrument.preset }}" data-soundfont="{{ param_song.instrument.source }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ param_song.instrument.name }}</h5>
-                        <p class="card-text">{{ param_song.params }}</p>
+
+        <!-- Botones para navegar entre las pantallas -->
+        <div class="btn-group mb-4" role="group" aria-label="Screen navigation">
+            <button type="button" class="btn btn-primary" data-target="#screen1">Screen 1</button>
+            <button type="button" class="btn btn-primary" data-target="#screen2">Screen 2</button>
+        </div>
+
+        <!-- Pantallas -->
+        <div id="screen1" class="screen active">
+            <div class="row">
+                {% for param_song in param_songs %}
+                <div class="col-md-3">
+                    <div class="card mb-4 play-instrument" data-param-song-id="{{ param_song.id }}" data-preset="{{ param_song.instrument.preset }}" data-soundfont="{{ param_song.instrument.source }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ param_song.instrument.name }}</h5>
+                            <p class="card-text">{{ param_song.params }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div id="screen2" class="screen">
+            <div class="row">
+                <!-- Aquí puedes agregar otro contenido o repetirte si necesitas más pantallas -->
+                <div class="col-md-3">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Otra pantalla</h5>
+                            <p class="card-text">Contenido adicional</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
         </div>
     </div>
 
     <script>
         $(document).ready(function() {
+            // Manejar la navegación entre pantallas
+            $('.btn-group button').on('click', function() {
+                var target = $(this).data('target');
+                $('.screen').removeClass('active');
+                $(target).addClass('active');
+            });
+
             $('.play-instrument').on('click', function() {
-                let soundfont = $(this).data('soundfont');
-                let preset = $(this).data('preset');
+                let $this = $(this);
+                let soundfont = $this.data('soundfont');
+                let preset = $this.data('preset');
                 
                 // Enviar la solicitud para cambiar el instrumento
                 $.ajax({
@@ -40,12 +72,12 @@
                     success: function(response) {
                         console.log('Instrument loaded:', response);
 
-                        // Quitar la clase 'active' de todos los elementos
+                        // Quitar la clase 'active' de todas las tarjetas
                         $('.play-instrument').removeClass('active');
                         
-                        // Agregar la clase 'active' al elemento clickeado
-                        $(this).addClass('active');
-                    }.bind(this), // Necesario para que 'this' se refiera al elemento clickeado en el success callback
+                        // Agregar la clase 'active' a la tarjeta clickeada
+                        $this.addClass('active');
+                    },
                     error: function(error) {
                         console.log('Error loading instrument:', error);
                     }
@@ -53,6 +85,4 @@
             });
         });
     </script>
-    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
-</body>
-</html>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script
