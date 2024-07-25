@@ -10,3 +10,44 @@
 .screen.active {
     display: block;
 }
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0; /* Elimina los márgenes entre las tarjetas */
+    height: 100%;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem; /* Ajusta el padding según sea necesario */
+}
+
+.play-instrument {
+    padding-bottom: 100%; /* Mantener la relación de aspecto cuadrada */
+    position: relative;
+    margin: 0; /* Elimina cualquier margen adicional */
+}
+
+.play-instrument .card-body {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.row.no-gutters > [class*='col-'] {
+    padding-right: 0;
+    padding-left: 0;
+}
