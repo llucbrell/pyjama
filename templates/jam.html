@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jam with {{ theme.title }}</title>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Jam with {{ theme.title }}</h1>
+        <div class="row">
+            {% for param_song in param_songs %}
+            <div class="col-md-3">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ param_song.instrument.name }}</h5>
+                        <p class="card-text">{{ param_song.params }}</p>
+                        <button class="btn btn-primary play-instrument" data-preset="{{ param_song.instrument.preset }}" data-soundfont="{{ param_song.instrument.source }}">Play</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.play-instrument').on('click', function() {
+                let soundfont = $(this).data('soundfont');
+                let preset = $(this).data('preset');
+                
+                // Enviar la solicitud para cambiar el instrumento
+                $.ajax({
+                    url: "{{ url_for('jam.play_instrument') }}",
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ preset: preset, soundfont: soundfont }),
+                    success: function(response) {
+                        console.log('Instrument loaded:', response);
+                    },
+                    error: function(error) {
+                        console.log('Error loading instrument:', error);
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>

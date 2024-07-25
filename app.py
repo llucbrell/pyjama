@@ -5,8 +5,9 @@ from routes.samplers import samplers_bp
 from routes.jam_test import jam_test_bp
 from routes.device import device_bp
 from routes.themes import theme_bp
-from routes.instrument import instrument_bp  # Asegúrate de que la importación es correcta
-from routes.song_instruments import song_instruments_bp  # Asegúrate de que la importación es correcta
+from routes.instrument import instrument_bp
+from routes.song_instruments import song_instruments_bp
+from routes.jam import jam_bp
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'
@@ -21,6 +22,7 @@ app.register_blueprint(device_bp)
 app.register_blueprint(theme_bp)  
 app.register_blueprint(instrument_bp)  
 app.register_blueprint(song_instruments_bp)  
+app.register_blueprint(jam_bp)  
 
 
 if __name__ == '__main__':

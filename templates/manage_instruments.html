@@ -37,7 +37,7 @@
                     <td>{{ param_song.params }}</td>
                     <td>
                         <form method="post" action="{{ url_for('song_instruments.remove_instrument', theme_id=theme.id, param_id=param_song.id) }}" style="display:inline;">
-                            <button type="submit" class="btn btn-outline-danger btn-sm">Remove</button>
+                <button type="submit" class="btn btn-outline-primary btn-md mt-2 mb-3" style="float: right;"><i class="fa-solid fa-plus"></i></button>
                         </form>
                     </td>
                 </tr>

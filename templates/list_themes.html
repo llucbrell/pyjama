@@ -27,10 +27,9 @@
                     {% endif %}
                             <div class="row mt-2 mb-3">
                             <div class="col-12">
-                                                        <a href="{{ url_for('song_instruments.manage_instruments', theme_id=theme.id) }}" class="btn btn-outline-info btn-sm">Manage Instruments</a>
-                            <a href="{{ url_for('theme.edit_theme', theme_id=theme.id) }}" class="btn btn-outline-success btn-md"><i class="fa-solid fa-gears"></i></a>
+                            <a href="{{ url_for('jam.jam', theme_id=theme.id) }}" class="btn btn-outline-success btn-md"><i class="fa-solid fa-gears"></i></a>
                             <a href="{{ url_for('theme.edit_theme', theme_id=theme.id) }}" class="btn btn-outline-warning btn-md"><i class="fa-solid fa-pencil"></i></a>
-                            <a href="{{ url_for('theme.edit_theme', theme_id=theme.id) }}" class="btn btn-outline-info btn-md"><i class="fa-solid fa-guitar"></i></a>
+                            <a href="{{ url_for('song_instruments.manage_instruments', theme_id=theme.id) }}" class="btn btn-outline-info btn-md"><i class="fa-solid fa-guitar"></i></a>
                             <form method="post" action="{{ url_for('theme.delete_theme', theme_id=theme.id) }}" style="display:inline;">
                                 <button type="submit" class="btn btn-outline-danger btn-md"><i class="fa-solid fa-trash"></i></button>
                             </form>
