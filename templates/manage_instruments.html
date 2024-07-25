@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Instruments for {{ theme.title }}</title>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Manage Instruments for {{ theme.title }}</h1>
+        <form method="post">
+            <div class="form-group">
+                <label for="instruments">Select Instruments</label>
+                <select multiple class="form-control" id="instruments" name="instruments">
+                    {% for instrument in instruments %}
+                    <option value="{{ instrument.id }}">{{ instrument.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Instruments</button>
+        </form>
+
+        <h2 class="mt-4">Related Instruments</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Instrument Name</th>
+                    <th>Params</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for param_song in related_instruments %}
+                <tr>
+                    <td>{{ param_song.instrument.name }}</td>
+                    <td>{{ param_song.params }}</td>
+                    <td>
+                        <form method="post" action="{{ url_for('song_instruments.remove_instrument', theme_id=theme.id, param_id=param_song.id) }}" style="display:inline;">
+                            <button type="submit" class="btn btn-outline-danger btn-sm">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>

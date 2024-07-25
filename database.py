@@ -25,6 +25,7 @@ class Theme(Base):
     player = Column(String, nullable=True)
     genre = Column(String, nullable=True)
     image = Column(String, nullable=True)
+    param_songs = relationship('ParamSong', back_populates='instrument')
 
 class Instrument(Base):
     __tablename__ = 'instruments'
@@ -33,6 +34,7 @@ class Instrument(Base):
     instrument_type = Column(String, nullable=False)
     source = Column(String, nullable=False)
     preset = Column(Integer, nullable=False)
+    param_songs = relationship('ParamSong', back_populates='instrument')
 
 class ParamSong(Base):
     __tablename__ = 'param_songs'
@@ -40,6 +42,12 @@ class ParamSong(Base):
     params = Column(String, nullable=False)
     instrument_id = Column(Integer, ForeignKey('instruments.id'), nullable=False)
     instrument = relationship('Instrument', back_populates='param_songs')
+    theme_id = Column(Integer, ForeignKey('themes.id'), nullable=False)
+    theme = relationship('Theme', back_populates='param_songs')
+
+Instrument.param_songs = relationship('ParamSong', order_by=ParamSong.id, back_populates='instrument')
+Theme.param_songs = relationship('ParamSong', order_by=ParamSong.id, back_populates='theme')
+
 
 Instrument.param_songs = relationship('ParamSong', order_by=ParamSong.id, back_populates='instrument')
 

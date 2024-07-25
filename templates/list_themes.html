@@ -25,13 +25,16 @@
                     {% if theme.genre %}
                     <p class="card-text">Genre: {{ theme.genre }}</p>
                     {% endif %}
-                    <div class="mt-auto">
-                        <div class="btn-group">
-                            <a href="{{ url_for('theme.edit_theme', theme_id=theme.id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <div class="row mt-2 mb-3">
+                            <div class="col-12">
+                                                        <a href="{{ url_for('song_instruments.manage_instruments', theme_id=theme.id) }}" class="btn btn-outline-info btn-sm">Manage Instruments</a>
+                            <a href="{{ url_for('theme.edit_theme', theme_id=theme.id) }}" class="btn btn-outline-success btn-md"><i class="fa-solid fa-gears"></i></a>
+                            <a href="{{ url_for('theme.edit_theme', theme_id=theme.id) }}" class="btn btn-outline-warning btn-md"><i class="fa-solid fa-pencil"></i></a>
+                            <a href="{{ url_for('theme.edit_theme', theme_id=theme.id) }}" class="btn btn-outline-info btn-md"><i class="fa-solid fa-guitar"></i></a>
                             <form method="post" action="{{ url_for('theme.delete_theme', theme_id=theme.id) }}" style="display:inline;">
-                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                <button type="submit" class="btn btn-outline-danger btn-md"><i class="fa-solid fa-trash"></i></button>
                             </form>
-                        </div>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -48,7 +51,7 @@
                     <input type="text" class="form-control" id="title" name="title" required>
                 </div>
                 
-                <button type="submit" class="btn btn-primary">Add Theme</button>
+                <button type="submit" class="btn btn-outline-primary btn-md mt-2 mb-3" style="float: right;"><i class="fa-solid fa-plus"></i></button>
             </form>
         </div>
     </div>
