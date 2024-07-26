@@ -1,6 +1,6 @@
-from sqlalchemy import create_engine, Column, Integer, String, Boolean, ForeignKey 
+from sqlalchemy import create_engine, Column, Integer, String, Boolean, ForeignKey, event
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy.orm import sessionmaker, relationship, backref
 
 Base = declarative_base()
 
@@ -25,7 +25,7 @@ class Theme(Base):
     player = Column(String, nullable=True)
     genre = Column(String, nullable=True)
     image = Column(String, nullable=True)
-    param_songs = relationship('ParamSong', back_populates='instrument')
+    param_songs = relationship('ParamSong', back_populates='theme', cascade="all, delete, delete-orphan")
 
 class Instrument(Base):
     __tablename__ = 'instruments'
@@ -46,10 +46,7 @@ class ParamSong(Base):
     theme = relationship('Theme', back_populates='param_songs')
 
 Instrument.param_songs = relationship('ParamSong', order_by=ParamSong.id, back_populates='instrument')
-Theme.param_songs = relationship('ParamSong', order_by=ParamSong.id, back_populates='theme')
-
-
-Instrument.param_songs = relationship('ParamSong', order_by=ParamSong.id, back_populates='instrument')
+Theme.param_songs = relationship('ParamSong', order_by=ParamSong.id, back_populates='theme', cascade="all, delete, delete-orphan")
 
 engine = create_engine('sqlite:///pyjama_data.db')
 Base.metadata.create_all(engine)
