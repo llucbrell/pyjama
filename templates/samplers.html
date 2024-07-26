@@ -20,10 +20,10 @@
                         <td>
                             <form method="post" action="{{ url_for('samplers.edit_sampler', sampler_id=sampler.id) }}" style="display:inline;">
                                 <input type="text" name="name" value="{{ sampler.name }}" class="mt-2" required>
-                                <button type="submit" class="btn btn-outline-warning btn-sm mt-2"><i class="fa-solid fa-floppy-disk"></i></button>
+                                <button type="submit" class="btn btn-outline-warning btn-md mt-2"><i class="fa-solid fa-floppy-disk"></i></button>
                             </form>
-                            <a href="{{ url_for('jam_test.jam_test', sampler_id=sampler.id) }}" class="btn btn-outline-info btn-sm mt-2"><i class="fa-solid fa-ear-listen"></i></a>
-                            <a href="{{ url_for('samplers.delete_sampler', sampler_id=sampler.id) }}" class="btn btn-outline-danger btn-sm mt-2"><i class="fa-solid fa-trash"></i></a>
+                            <a href="{{ url_for('jam_test.jam_test', sampler_id=sampler.id) }}" class="btn btn-outline-info btn-md mt-2"><i class="fa-solid fa-ear-listen"></i></a>
+                            <a href="{{ url_for('samplers.delete_sampler', sampler_id=sampler.id) }}" class="btn btn-outline-danger btn-md mt-2"><i class="fa-solid fa-trash"></i></a>
                             </td>
                         <td>{{ sampler.filename }}</td>
                     </tr>

@@ -1,38 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Theme</title>
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
+
     <div class="container">
         <h1 class="mt-4">Edit Theme</h1>
         <form method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title" value="{{ theme.title }}" required>
+                <input type="text" class="form-control" id="title" name="title" value="{{ theme.title  or ''}}" required>
             </div>
             <div class="mb-3">
                 <label for="author" class="form-label">Author</label>
-                <input type="text" class="form-control" id="author" name="author" value="{{ theme.author }}">
+                <input type="text" class="form-control" id="author" name="author" value="{{ theme.author or '' }}">
             </div>
             <div class="mb-3">
                 <label for="player" class="form-label">Player</label>
-                <input type="text" class="form-control" id="player" name="player" value="{{ theme.player }}">
+                <input type="text" class="form-control" id="player" name="player" value="{{ theme.player or ''}}">
             </div>
             <div class="mb-3">
                 <label for="genre" class="form-label">Genre</label>
-                <input type="text" class="form-control" id="genre" name="genre" value="{{ theme.genre }}">
+                <input type="text" class="form-control" id="genre" name="genre" value="{{ theme.genre or ''}}">
             </div>
             <div class="mb-3">
                 <label for="image" class="form-label">Image</label>
-                <input type="file" class="form-control" id="image" name="image">
+                <input type="text" class="form-control" id="image-url" name="image-url" value="{{ theme.image or ''}}">
+                <input type="file" class="form-control mt-2" id="image" name="image">
             </div>
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-outline-warning btn-md" style="float: right;"><i class="fa-solid fa-floppy-disk"></i></button>
         </form>
     </div>
-    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
-</body>
-</html>
+
+
+
+{% endblock %}
