@@ -1,8 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="container">
-        <h1 class="mt-4">Index</h1>
+<div class="container">
+        <div class="row mb-3">
+            <div class="col-md-12 text-center">
+                <img src="{{ url_for('static', filename='images/pijama.svg') }}" style="width: 25%;" class="img-fluid" alt="Site Identity Image">
+            </div>
+        </div>
+       <div class="row">
+            <div class="col-md-6">
+                <h1 class="display-4">What is a MIDI Sampler?</h1>
+                <p class="lead">A MIDI sampler is a type of digital musical instrument that uses pre-recorded sounds or "samples" to create music. These samples are typically stored in files called soundfonts.</p>
+                <p>Soundfonts are a popular format for distributing collections of audio samples. They can be used to recreate the sounds of real instruments or create entirely new sounds.</p>
+                <p>With a MIDI sampler, musicians can load different soundfonts to access a wide variety of sounds and play them using MIDI controllers, such as keyboards or drum pads.</p>
+            </div>
 
+            <div class="col-md-6">
+                <h1 class="display-4">What is PiJama Sampler?</h1>
+                <p class="lead">A MIDI sampler that can add more sounds to your midi device and runs over the Raspberrypi. It has a web UI and it's designed for live performances and easy sampler aditions and device adiministration.</p>
+                <p>With PiJama you can add</p>
+                <p>Pyjama is the project under PiJama Sampler, it's a Python-Flask web server that manages all the administration file loading and midi configuration. It works with FluidSyth synthetizer for sound reproduction.</p>
+            </div>
+        
+        </div>
+        <div class="row mt-2 mb-2">
+            <div class="col-md-12 text-center">
+                <img src="{{ url_for('static', filename='images/pijama_schema.png') }}" style="width: 50%;" class="img-fluid rounded-pill" alt="Site Identity Image">
+            </div>
+        </div>
+ 
     </div>
 {% endblock %}

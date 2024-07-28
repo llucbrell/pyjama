@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+#grid {
+    display: grid;
+    grid-template-columns: repeat(4, 50px); /* 4 columnas */
+    gap: 10px; /* Espacio entre los botones */
+}
+
+.grid-button {
+    width: 50px;
+    height: 50px;
+    background-color: #ffff;
+    border: 2px solid #f47c7c !important;
+    color: #f47c7c;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.grid-button.active {
+    background-color: #f47c7c;
+    color:#ffff;
+}
+
+.grid-button.playing {
+    background-color: #ffc107;
+}
+</style>
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-md-4 text-center mt-2">
+            <img src="{{ url_for('static', filename='images/pijama.svg') }}" style="width: 10%;" class="img-fluid" alt="Site Identity Image">
+            <h1 class="display-4 mt-2">404 - Pijama Page Not Found</h1>
+            <p class="lead">Sorry, the page you are looking for does not exist. Go back to the
+            <a href="{{ url_for('general.index') }}">Home</a> page or stay a little and play on a loop.
+            </p>
+        </div>
+        <div class="col-md-4 text-center">
+            <img src="{{ url_for('static', filename='images/synt_1.jpg') }}" style="width: 95%;" class="img-fluid" alt="Site Identity Image">
+        </div>
+        <div class="col-md-4 mt-3">
+            <h2 class="display-6">
+            Looper..
+            </h2>
+            <button id="playButton" class="btn btn-outline-custom mt-3"><i id="playIcon" class="fa-solid fa-play"></i></button>
+            <div id="grid" class="mt-4">
+                <!-- Botones del grid se añadirán aquí -->
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const grid = document.getElementById('grid');
+    const playButton = document.getElementById('playButton');
+    const playIcon = document.getElementById('playIcon');
+    const numberOfRows = 4;
+    const numberOfColumns = 4;
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    let isPlaying = false;
+    let currentStep = 0;
+    let interval;
+    
+    // Crear botones del grid
+    for (let i = 0; i < numberOfRows * numberOfColumns; i++) {
+        const button = document.createElement('button');
+        button.classList.add('grid-button');
+        button.dataset.index = i;
+        button.textContent = i + 1;
+        button.addEventListener('click', function() {
+            this.classList.toggle('active');
+        });
+        grid.appendChild(button);
+    }
+
+    // Función para reproducir un sonido de sintetizador
+    function playSound(index) {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+
+        // Configurar el oscilador (puedes cambiar el tipo de onda y la frecuencia)
+        oscillator.type = 'sine'; // Puedes usar 'sine', 'square', 'sawtooth', 'triangle'
+        oscillator.frequency.setValueAtTime(200 + index * 20, audioContext.currentTime); // Frecuencia base + incremento por índice
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+
+        // Configurar el envolvente de amplitud
+        gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+        gainNode.gain.linearRampToValueAtTime(1, audioContext.currentTime + 0.01); // Attack
+        gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.5); // Decay
+
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.5); // Duración del sonido
+    }
+
+    // Función para ejecutar el loop
+    function playLoop() {
+        const buttons = document.querySelectorAll('.grid-button');
+        buttons.forEach((button, index) => {
+            if (index % numberOfColumns === currentStep) {
+                button.classList.add('playing');
+                if (button.classList.contains('active')) {
+                    playSound(index);
+                }
+            } else {
+                button.classList.remove('playing');
+            }
+        });
+        currentStep = (currentStep + 1) % numberOfColumns;
+    }
+
+    // Iniciar y detener el loop
+    playButton.addEventListener('click', function() {
+        if (isPlaying) {
+            clearInterval(interval);
+            //this.textContent = 'Play';
+            playIcon.classList.remove('fa-pause');
+            playIcon.classList.add('fa-play');
+        } else {
+            interval = setInterval(playLoop, 500); // Repetir cada 500ms
+            //this.textContent = 'Stop';
+            playIcon.classList.remove('fa-play');
+            playIcon.classList.add('fa-pause');
+        }
+        isPlaying = !isPlaying;
+    });
+});
+</script>
+{% endblock %}

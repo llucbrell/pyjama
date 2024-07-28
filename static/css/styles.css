@@ -11,3 +11,27 @@
 .container-fix {
     padding-top: 60px; /* Ajusta el valor según el alto de la barra flotante */
 }
+
+.btn-custom {
+    color: #fff; /* Texto en blanco */
+    background-color: #f47c7c; /* Color de fondo personalizado */
+    border-color: #f47c7c; /* Color del borde personalizado */
+}
+
+.btn-custom:hover {
+    color: #fff;
+    background-color: #f47c7c; /* Color de fondo al pasar el ratón */
+    border-color: #f47c7c; /* Color del borde al pasar el ratón */
+}
+
+.btn-outline-custom {
+    color: #f47c7c; /* Color del texto */
+    border-color: #f47c7c; /* Color del borde */
+}
+
+.btn-outline-custom:hover {
+    color: #fff; /* Color del texto al pasar el ratón */
+    background-color: #f47c7c; /* Color de fondo al pasar el ratón */
+    border-color:  #f47c7c; /* Color del borde al pasar el ratón */
+}
+

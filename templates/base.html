@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My App{% endblock %}</title>
+    <title>{% block title %}PiJama{% endblock %}</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/pijama.svg') }}" type="image/png">
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/all.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
@@ -11,17 +12,20 @@
 <body>
     <div class="floating-bar">
         <div class="container">
-            <div class="d-flex justify-content-start mb-2">
-                <a class="btn btn-outline-primary me-2" href="{{ url_for('theme.list_themes') }}">
+            <div class="d-flex justify-content-start align-items-center mb-2">
+                <a class="me-2" href="{{ url_for('general.index') }}">
+                    <img src="{{ url_for('static', filename='images/pijama.svg') }}" style="width: 40px; height: 40px;" alt="Site Identity Image">
+                </a>
+                <a class="btn btn-outline-custom me-2" href="{{ url_for('theme.list_themes') }}">
                     <i class="fa-solid fa-music"></i>
                 </a>
-                <a class="btn btn-outline-primary me-2" href="{{ url_for('instrument.list_instruments') }}">
+                <a class="btn btn-outline-custom me-2" href="{{ url_for('instrument.list_instruments') }}">
                     <i class="fa-solid fa-guitar"></i>
                 </a>
-                <a class="btn btn-outline-primary me-2" href="{{ url_for('samplers.samplers') }}">
+                <a class="btn btn-outline-custom me-2" href="{{ url_for('samplers.samplers') }}">
                     <i class="fa-solid fa-wave-square"></i>
                 </a>
-                <a class="btn btn-outline-primary me-2" href="{{ url_for('config.config') }}">
+                <a class="btn btn-outline-custom me-2" href="{{ url_for('config.config') }}">
                     <i class="fas fa-plug"></i>
                 </a>
                 <!-- Add more buttons as needed -->
