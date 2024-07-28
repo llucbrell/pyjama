@@ -32,7 +32,7 @@ def play_note_with_soundfont(soundfont_path, midi_note=60, velocity=100, duratio
 
 if __name__ == "__main__":
     # Ruta al archivo SoundFont
-    soundfont_path = "samplers/soundfonts/Roland_64VoicePiano.sf2"
+    soundfont_path = "samplers/soundfonts/Piano.sf2"
     
     # Configuración de la nota MIDI
     midi_note = 60      # Nota C4
