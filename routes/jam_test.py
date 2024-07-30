@@ -19,6 +19,7 @@ def initialize_synth():
         synth.start(driver='alsa')  # Usa ALSA como backend
         current_app.logger.debug("Synth initialized")
 
+
 def get_presets(sffilepath):
     presets = []
     try:
@@ -29,6 +30,8 @@ def get_presets(sffilepath):
     except Exception as e:
         current_app.logger.error(f"Error loading presets: {e}")
     return presets
+
+
 
 @jam_test_bp.route('/jam_test/<int:sampler_id>')
 def jam_test(sampler_id):
@@ -70,14 +73,18 @@ def send_note():
     try:
         if synth is None:
             initialize_synth()  # Asegúrate de que el sintetizador esté inicializado
+
+        # Cargar solo el preset específico
         sfid = synth.sfload(sffilepath, update_midi_preset=True)
         synth.program_select(0, sfid, 0, preset)
+
         if action == 'note_on':
             current_app.logger.debug(f"Note on: {note}")
             synth.noteon(0, note, 100)
         elif action == 'note_off':
             current_app.logger.debug(f"Note off: {note}")
             synth.noteoff(0, note)
+
         success_response = jsonify({"status": "success", "note": note, "action": action})
         current_app.logger.debug(success_response.get_data(as_text=True))
         return success_response

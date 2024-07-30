@@ -7,20 +7,20 @@ Base = declarative_base()
 class Configuration(Base):
     __tablename__ = 'configurations'
     id = Column(Integer, primary_key=True)
-    name = Column(String, unique=True, nullable=False)
+    name = Column(String, nullable=False)
     port = Column(String, nullable=False)
     active = Column(Boolean, default=False)
 
 class Sampler(Base):
     __tablename__ = 'samplers'
     id = Column(Integer, primary_key=True)
-    name = Column(String, unique=True, nullable=False)
+    name = Column(String, nullable=False)
     filename = Column(String, nullable=False)
 
 class Theme(Base):
     __tablename__ = 'themes'
     id = Column(Integer, primary_key=True)
-    title = Column(String, unique=True, nullable=False)
+    title = Column(String, nullable=False)
     author = Column(String, nullable=True)
     player = Column(String, nullable=True)
     genre = Column(String, nullable=True)

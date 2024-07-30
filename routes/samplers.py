@@ -47,8 +47,9 @@ def edit_sampler(sampler_id):
 @samplers_bp.route('/delete_sampler/<int:sampler_id>')
 def delete_sampler(sampler_id):
     sampler = session.query(Sampler).filter_by(id=sampler_id).first()
-    os.remove(os.path.join(UPLOAD_FOLDER, sampler.filename))
+    file_path = os.path.join(UPLOAD_FOLDER, sampler.filename)
+    if os.path.exists(file_path):
+        os.remove(file_path)
     session.delete(sampler)
     session.commit()
     return redirect(url_for('samplers.samplers'))
-

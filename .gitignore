@@ -1,4 +1,5 @@
 pyjama
 pyjama_data.db
+static/uploads
 __pycache__
 samplers/soundfonts/*

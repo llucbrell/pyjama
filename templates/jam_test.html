@@ -40,19 +40,17 @@
 </div>
 <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
 <script>
-    // Update the preset value in the form when the dropdown changes
     document.getElementById('preset').addEventListener('change', function() {
         document.getElementById('preset-form').value = this.value;
     });
 
-    // Set the initial value of the preset in the form
     document.getElementById('preset-form').value = document.getElementById('preset').value;
 
     async function sendNoteAction(action) {
         const note = document.getElementById('note').value;
         if (!note) {
             document.getElementById('note').focus();
-            document.getElementById("response-err-msg").innerHTML = "Error" + ": " + "Note number can't be none";
+            document.getElementById("response-err-msg").innerHTML = "Error: Note number can't be none";
             document.getElementById("response-msg").classList.add('d-none');
             document.getElementById("response-err-msg").classList.remove('d-none');
             return;
@@ -77,7 +75,7 @@
                 document.getElementById("response-err-msg").classList.remove('d-none');
             }
         } catch (error) {
-            document.getElementById("response-err-msg").innerHTML = "Error" + ": " + error.message;
+            document.getElementById("response-err-msg").innerHTML = "Error: " + error.message;
             document.getElementById("response-msg").classList.add('d-none');
             document.getElementById("response-err-msg").classList.remove('d-none');
         }
@@ -115,10 +113,11 @@
                 document.getElementById("response-err-msg").classList.remove('d-none');
             }
         } catch (error) {
-            document.getElementById("response-err-msg").innerHTML = "Error" + ": " + error.message;
+            document.getElementById("response-err-msg").innerHTML = "Error: " + error.message;
             document.getElementById("response-msg").classList.add('d-none');
             document.getElementById("response-err-msg").classList.remove('d-none');
         }
     }
 </script>
+
 {% endblock %}
